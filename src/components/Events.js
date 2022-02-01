@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import Modal from './Modal';
+import moment from 'moment';
 
 function Modal({ showModal, setShowModal, body }) {
   return showModal ? (
@@ -15,7 +15,7 @@ function Modal({ showModal, setShowModal, body }) {
           </span>
         </div>
 
-        <p className='whitespace-pre'>{body}</p>
+        <p className='whitespace-pre'>{body || 'No body available.'}</p>
       </div>
     </div>
   ) : (
@@ -35,7 +35,7 @@ export default function Events() {
   };
 
   return (
-    <div className='flex flex-col max-h-screen overflow-hidden'>
+    <div className='flex flex-col max-h-screen overflow-scroll mx-10 border-2 rounded-lg'>
       <Modal setShowModal={setShowModal} showModal={showModal} body={item} />
       <table className='mx-4 mt-2'>
         <thead>
@@ -78,7 +78,7 @@ export default function Events() {
                   {item.subject || 'Empty subject'}
                 </td>
                 <td className='px-6 py-4 text-sm leading-5 text-gray-500 max-w-xs truncate'>
-                  {item.created || 'Empty body'}
+                  {moment(item.created).format('LLL') || 'Empty date'}
                 </td>
                 <td className='px-6 py-4 text-sm leading-5 text-gray-500 max-w-xs truncate'>
                   {item.body || 'Empty body'}
